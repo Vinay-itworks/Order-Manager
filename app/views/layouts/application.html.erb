@@ -18,22 +18,7 @@
   </head>
 
   <body>
-    <nav>
-      <a id="logo" class="nav-link" href="#"><h2>User Auth</h2></a>
-      
-      <%= link_to "Home", root_path %> |
-      <% if user_signed_in? %>
-      <%= link_to "My Address", user_addresses_path %> |
-      <%= link_to "Edit Profile", edit_user_registration_path %> |
-      <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete } %> |
-      <% else %>
-      <%= link_to "Sign Up", new_user_registration_path %> |
-      <%= link_to "Sign In", new_user_session_path %> |
-      <% end %>
-      
-    </nav>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render "layouts/navbar" %>
     <%= yield %>
   </body>
 </html>

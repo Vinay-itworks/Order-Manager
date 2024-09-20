@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  has_many :photos, as: :photoable
+  
   validates :price, :discount, :description, :name, presence: true
   validates :name, length: { in: 3..100 }
   validates :description, length: { minimum: 5 }
