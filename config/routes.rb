@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   resources :products
+=======
+  resources :photos
+>>>>>>> Stashed changes
 =======
   resources :photos
 >>>>>>> Stashed changes
