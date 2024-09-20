@@ -1,0 +1,12 @@
+<% content_for :title, "New photo" %>
+
+<h1>New photo</h1>
+
+<%= render "form", photo: @photo %>
+
+<br>
+
+<div>
+  <%= link_to "Back to products", product_path(id: params["product_id"]) %> |
+  <%= link_to "Back to photos", product_photos_path %>
+</div>

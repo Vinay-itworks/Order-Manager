@@ -1,9 +1,10 @@
-class PhotosController < ApplicationController
+class Products::PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
 
   # GET /photos or /photos.json
   def index
-    @photos = Photo.all
+    @product = Product.find(params["product_id"])
+    @photos = @product.photos
   end
 
   # GET /photos/1 or /photos/1.json
@@ -12,6 +13,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/new
   def new
+    @product = Product.find(params["product_id"])
     @photo = Photo.new
   end
 
@@ -21,11 +23,16 @@ class PhotosController < ApplicationController
 
   # POST /photos or /photos.json
   def create
-    @photo = Photo.new(photo_params)
-
+    puts params
+    @product = Product.find(params["product_id"])
+    # photo_params.merge()
+    puts photo_params
+    @photo = Photo.new(photo_params.merge(photoable_id: params["product_id"], photoable_type: "Product"))
+    errors.add(:photo, "can't be empty") unless photo.attached?
+    # , :photoable_id, :photoable_type
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to @photo, notice: "Photo was successfully created." }
+        format.html { redirect_to product_photos_url, notice: "Photo was successfully created." }
         format.json { render :show, status: :created, location: @photo }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +59,7 @@ class PhotosController < ApplicationController
     @photo.destroy!
 
     respond_to do |format|
-      format.html { redirect_to photos_path, status: :see_other, notice: "Photo was successfully destroyed." }
+      format.html { redirect_to product_photos_path, status: :see_other, notice: "Photo was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +72,6 @@ class PhotosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def photo_params
-      params.require(:photo).permit(:photo, :photoable_id, :photoable_type)
+      params.require(:photo).permit(:photo)
     end
 end

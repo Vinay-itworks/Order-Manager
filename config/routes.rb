@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :products
-  resources :photos
+  resources :products, module: "products" do
+    resources :photos
+  end
+
   devise_for :users, controllers: {
     sessions: "user/sessions",
     registrations: "user/registrations"

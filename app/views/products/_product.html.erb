@@ -1,4 +1,10 @@
 <div id="<%= dom_id product %>">
+  <% product.photos.each do |photo| %>
+  <span>
+    <%= image_tag url_for(photo.photo), height:200, width:200 if photo.photo.attached? %>
+    </span>
+  <% end %>
+  
   <p>
     <strong>Name:</strong>
     <%= product.name %>
@@ -20,13 +26,13 @@
   </p>
 
   <p>
-    <strong>Compare at price:</strong>
+    <strong>You are Saving:</strong>
     <%= product.compare_at_price %>
   </p>
 
   <p>
     <strong>Currently available at:</strong>
-    <%= product.price - product.compare_at_price %>
+    <%= (product.price - product.compare_at_price).floor %>
   </p>
 
   <p>
