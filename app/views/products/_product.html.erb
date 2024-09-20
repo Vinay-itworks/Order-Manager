@@ -1,0 +1,37 @@
+<div id="<%= dom_id product %>">
+  <p>
+    <strong>Name:</strong>
+    <%= product.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= product.description %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= product.price %>
+  </p>
+
+  <p>
+    <strong>Discount:</strong>
+    <%= product.discount %>%
+  </p>
+
+  <p>
+    <strong>Compare at price:</strong>
+    <%= product.compare_at_price %>
+  </p>
+
+  <p>
+    <strong>Currently available at:</strong>
+    <%= product.price - product.compare_at_price %>
+  </p>
+
+  <p>
+    <strong>Is active:</strong>
+    <%= product.is_active %>
+  </p>
+
+</div>
