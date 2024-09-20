@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_19_113953) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_20_060032) do
   create_table "addresses", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "address_type"
@@ -25,6 +25,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_19_113953) do
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.float "price"
+    t.float "compare_at_price"
+    t.float "discount"
+    t.boolean "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -36,6 +47,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_19_113953) do
     t.date "birthdate", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "age"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
