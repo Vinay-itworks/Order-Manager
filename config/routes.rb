@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+<<<<<<< Updated upstream
   resources :products
+=======
+  resources :photos
+>>>>>>> Stashed changes
   devise_for :users, controllers: {
     sessions: "user/sessions",
     registrations: "user/registrations"
