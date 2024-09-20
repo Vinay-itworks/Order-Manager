@@ -59,4 +59,9 @@ class User::RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     super(resource)
   end
+
+  # The path used after updating user.
+  def after_update_path_for(resource)
+    user_about_path
+  end
 end
