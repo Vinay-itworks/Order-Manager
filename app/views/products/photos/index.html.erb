@@ -8,9 +8,10 @@
   <% @photos.each do |photo| %>
     <%= render photo %>
     <p>
-      <%= link_to "Show this photo", photo %>
+      <%= link_to "Show this photo", product_photo_path(id: photo.id) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New photo", new_photo_path %>
+<%= link_to "Back to products", product_path(id: params["product_id"]) %> |
+<%= link_to "New photo", new_product_photo_path %>
