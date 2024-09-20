@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< Updated upstream
 ActiveRecord::Schema[7.2].define(version: 2024_09_20_060032) do
+=======
+ActiveRecord::Schema[7.2].define(version: 2024_09_20_071541) do
+>>>>>>> Stashed changes
   create_table "addresses", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "address_type"
@@ -25,6 +29,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_20_060032) do
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
+<<<<<<< Updated upstream
+=======
+  create_table "photos", force: :cascade do |t|
+    t.string "photoable_type", null: false
+    t.integer "photoable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["photoable_type", "photoable_id"], name: "index_photos_on_photoable"
+  end
+
+>>>>>>> Stashed changes
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
