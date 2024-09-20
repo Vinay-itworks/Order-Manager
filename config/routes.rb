@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  resources :products
   devise_for :users, controllers: {
     sessions: "user/sessions",
     registrations: "user/registrations"
   }
   namespace :user do
+    get "about", to: "user#about", as: :about
     resources :addresses
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
