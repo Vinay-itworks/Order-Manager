@@ -1,0 +1,22 @@
+<div id="<%= dom_id @user %>">
+  <p>
+    <strong>Full name:</strong>
+    <%= "#{@user.first_name} #{@user.last_name}" %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <strong>Birth Date:</strong>
+    <%= @user.birthdate %>
+  </p>
+
+  <p>
+    <strong>Age:</strong>
+    <%= @user.age %>
+  </p>
+
+</div>
