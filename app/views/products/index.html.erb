@@ -10,10 +10,11 @@
     <%= render product %>
     <p>
       <%= link_to "Show this product", product %> |
-      <%= link_to "Add to Cart", product %> |
+      <%= link_to "Add to Cart", add_to_cart_path(product), data: { turbo_method: :post} %> |
       <%= link_to "Buy Now", product %>
     </p>
   <% end %>
 </div>
 
+<%= paginate @products %>
 <%= link_to "New product", new_product_path %>

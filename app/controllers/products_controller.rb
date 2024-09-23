@@ -58,6 +58,27 @@ class ProductsController < ApplicationController
     end
   end
 
+  def add_product_to_cart
+    @product = Product.find(params["product_id"])
+    @user_cart = current_user.cart.products
+    @user_cart << @product
+    redirect_to user_carts_url
+  end
+
+  def remove_product_to_cart
+    @product = Product.find(params["product_id"])
+    @cart = current_user.cart
+    CartProduct.where("cart_id = ? AND product_id = ?", @cart.id, @product.id).first.delete
+    redirect_to user_carts_url
+  end
+
+  def remove_all_from_cart
+    @product = Product.find(params["product_id"])
+    @cart = current_user.cart
+    CartProduct.where("cart_id = ? AND product_id = ?", @cart.id, @product.id).delete_all
+    redirect_to user_carts_url
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product

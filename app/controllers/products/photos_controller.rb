@@ -25,11 +25,7 @@ class Products::PhotosController < ApplicationController
   def create
     puts params
     @product = Product.find(params["product_id"])
-    # photo_params.merge()
-    puts photo_params
     @photo = Photo.new(photo_params.merge(photoable_id: params["product_id"], photoable_type: "Product"))
-    errors.add(:photo, "can't be empty") unless photo.attached?
-    # , :photoable_id, :photoable_type
     respond_to do |format|
       if @photo.save
         format.html { redirect_to product_photos_url, notice: "Photo was successfully created." }
