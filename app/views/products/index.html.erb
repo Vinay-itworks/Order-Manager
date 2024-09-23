@@ -4,6 +4,7 @@
 
 <h1>Products</h1> <%= link_to "Add New product", new_product_path %>
 <%= paginate @products %>
+<h1>Products</h1>
 
 <div id="products">
   <% @products.each do |product| %>
@@ -11,6 +12,7 @@
     <p>
       <%= link_to "Show this product", product %> |
       <%= link_to "Add to Cart", add_to_cart_path(product), data: { turbo_method: :post} %> |
+      <%= link_to "Add to Cart", product %> |
       <%= link_to "Buy Now", product %>
     </p>
   <% end %>

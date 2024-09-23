@@ -1,10 +1,16 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
+
   before_action :image_attached, only: [ :show ]
 
   # GET /products or /products.json
   def index
     @products = Product.page(params[:page]).per(2)
+  end
+
+  # GET /products or /products.json
+  def index
+    @products = Product.all
   end
 
   # GET /products/1 or /products/1.json
@@ -89,7 +95,7 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:name, :description, :price, :discount, :is_active)
     end
-
+    
     # check_image attached
     def image_attached
       if @product.photos == []
