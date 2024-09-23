@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
+  resources :products
+  post "products/:product_id/add_to_cart", to: "products#add_product_to_cart", as: :add_to_cart
+  delete "products/:product_id/remove_to_cart", to: "products#remove_product_to_cart", as: :remove_to_cart
+  delete "product/:product_id/remove_all_from_cart", to: "products#remove_all_from_cart", as: :remove_all_from_cart
+  resources :products, module: "products" do
+    resources :photos
+  end
+
   devise_for :users, controllers: {
     sessions: "user/sessions",
     registrations: "user/registrations"
   }
   namespace :user do
+    get "about", to: "user#about", as: :about
     resources :addresses
+    resources :carts
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
