@@ -1,5 +1,6 @@
 class Address < ApplicationRecord
   belongs_to :user
+  has_many :orders
 
   validates :city, :state, :country, presence: true, length: { maximum: 15 }
   validates :address,  length: { in: 5..50 }

@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
   has_many :photos, as: :photoable
+  has_many :order_products
+  has_many :orders, through: :order_products
   has_many :cart_product
   has_many :carts, through: :cart_product
   has_many :users, through: :carts
@@ -12,7 +14,7 @@ class Product < ApplicationRecord
     product.compare_at_price = product.price * (product.discount/100.00)
   end
 
-  after_initialize do |product|
+  after_find do |product|
     product.current_price = (product.price - product.compare_at_price).floor
   end
 end

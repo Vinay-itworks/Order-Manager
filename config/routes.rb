@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   resources :products
   post "products/:product_id/add_to_cart", to: "products#add_product_to_cart", as: :add_to_cart
   delete "products/:product_id/remove_to_cart", to: "products#remove_product_to_cart", as: :remove_to_cart

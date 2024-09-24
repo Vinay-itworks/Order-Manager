@@ -1,0 +1,39 @@
+<%= form_with(model: @order) do |form| %>
+  <% if @order.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+        <% @order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+      <%= puts @address_options %>
+      <%= form.label :address_id, style: "display: block" %>
+      <%= form.select :address_id, @address_options %>
+      <%= link_to "New address", new_user_address_path %>
+  </div>
+
+  <div>
+    <%= form.label :order_price, style: "display: block" %>
+    <%= form.text_field :order_price, value: @hidden_params[:order_price] %>
+  </div>
+
+  <div>
+    
+    <%= form.text_field :products_id, value: @hidden_params[:products_id] %>
+  </div>
+
+  <div>
+    <% if @address_options == [] %>
+      <%= link_to "New address", new_user_address_path %>
+    <% else %>
+      <%= form.submit %>
+    <% end %>
+    
+  </div>
+<% end %>

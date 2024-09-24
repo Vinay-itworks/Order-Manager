@@ -1,0 +1,31 @@
+<div id="<%= dom_id product %>">
+  <% photo = product.photos.first %>
+  <span>
+    <%= image_tag url_for(photo.photo), height:200, width:200 if photo.photo.attached? %>
+  </span>
+  
+  <p>
+    <strong>Name:</strong>
+    <%= product.name %>
+  </p>
+  <p>
+    <strong>Price:</strong>
+    <%= product.price %>
+  </p>
+
+  <p>
+    <strong>Discount:</strong>
+    <%= product.discount %>%
+  </p>
+
+  <p>
+    <strong>You Saved:</strong>
+    <%= product.compare_at_price %>
+  </p>
+
+  <p>
+    <strong>Currently available at:</strong>
+    <%= product.current_price %>
+  </p>
+
+</div>

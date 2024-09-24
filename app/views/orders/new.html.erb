@@ -1,0 +1,11 @@
+<% content_for :title, "New order" %>
+
+<h1>New order</h1>
+
+<%= render "form", locals: {order: @order, hidden_params: @hidden_params, address_options: @address_options} %>
+
+<br>
+
+<div>
+  <%= link_to "Back to orders", orders_path %>
+</div>

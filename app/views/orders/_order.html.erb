@@ -1,0 +1,24 @@
+<div id="<%= dom_id order %>">
+  <p>
+    <strong>Addresses:</strong>
+    <%= Address.find(order.address_id).values_at(:id, :address_type, :address, :city).join("\n") %>
+  </p>
+
+  <p>
+    <strong>Products:</strong>
+    <% number =  order.products.group(:id).count(:id) %>
+    <strong>Product:</strong>
+    <% order.products.distinct.each do |product| %>
+    <%= render partial: "product", locals: { product: product } %>
+    <strong>Quantity:</strong>
+    <%= number[product.id] %> 
+
+    <%= link_to "Show this product", product %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Order price:</strong>
+    <%= order.order_price %>
+  </p>
+</div>

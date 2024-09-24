@@ -8,6 +8,11 @@
     <%= cart.price %>
   </p>
 
+  <p>
+    <strong>Place Order:</strong>
+    <%= link_to "Place Order", new_order_path(:orders => @number) %>
+  </p>
+
   <%= paginate @products %>
 
   <p>
