@@ -1,43 +1,52 @@
-<div id="<%= dom_id product %>">
+<h6 class="card-header">
+  <strong>Name:</strong>
+  <%= product.name %>
+</h6>
+<div class="card-body">
   <% product.photos.each do |photo| %>
-  <span>
-    <%= image_tag url_for(photo.photo), height:200, width:200 if photo.photo.attached? %>
+    <span>
+      <%= image_tag url_for(photo.photo), height:200, width:200 if photo.photo.attached? %>
     </span>
   <% end %>
-  
-  <p>
-    <strong>Name:</strong>
-    <%= product.name %>
-  </p>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <strong>Description:</strong>
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body"><%= product.description %></div>
+        </div>
+      </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <strong>Price:</strong>
+      <%= product.price %>
+    </li>
 
-  <p>
-    <strong>Description:</strong>
-    <%= product.description %>
-  </p>
+    <li class="list-group-item">
+      <strong>Discount:</strong>
+      <%= product.discount %>%
+    </li>
 
-  <p>
-    <strong>Price:</strong>
-    <%= product.price %>
-  </p>
+    <li class="list-group-item">
+      <strong>You are Saving:</strong>
+      <%= product.compare_at_price %>
+    </li>
 
-  <p>
-    <strong>Discount:</strong>
-    <%= product.discount %>%
-  </p>
+    <li class="list-group-item">
+      <strong>Currently available at:</strong>
+      <%= product.current_price %>
+    </li>
 
-  <p>
-    <strong>You are Saving:</strong>
-    <%= product.compare_at_price %>
-  </p>
-
-  <p>
-    <strong>Currently available at:</strong>
-    <%= product.current_price %>
-  </p>
-
-  <p>
-    <strong>Is active:</strong>
-    <%= product.is_active %>
-  </p>
+    <li class="list-group-item">
+      <strong>Is active:</strong>
+      <%= product.is_active %>
+    </li>
+  </ul>
 
 </div>

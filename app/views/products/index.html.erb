@@ -3,16 +3,28 @@
 <% content_for :title, "Products" %>
 
 <h1>Products</h1> <%= link_to "Add New product", new_product_path %>
-<%= paginate @products %>
+
+<nav aria-label="Page navigation example">
+  <%= page_entries_info @products, entry_name: 'product' %>
+  <ul class="pagination">
+    
+    <li class="page-item"><%= link_to_prev_page @products, 'Previous', class:"page-link" %></li>
+    
+    <li class="page-item"><%= link_to_next_page @products, 'Next', class:"page-link" %></li>
+  </ul>
+</nav>
 
 <div id="products">
   <% @products.each do |product| %>
-    <%= render product %>
-    <p>
-      <%= link_to "Show this product", product %> |
-      <%= link_to "Add to Cart", add_to_cart_path(product), data: { turbo_method: :post} %> |
-      <%= link_to "Buy Now", new_order_path(:orders => {product.id => 1}) %>
-    </p>
+    <div class="card" width: >
+      <%= render product %>
+      <div class="card-footer">
+        <%= link_to "Show this product", product %> |
+        <%= link_to "Add to Cart", add_to_cart_path(product), data: { turbo_method: :post} %> |
+        <%= link_to "Buy Now", new_order_path(:orders => {product.id => 1}) %>
+      </div>
+    </div>
+    <br/>
   <% end %>
 </div>
 
