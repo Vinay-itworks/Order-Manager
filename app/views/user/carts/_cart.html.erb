@@ -1,0 +1,31 @@
+<div id="<%= dom_id cart %>">
+  <p>
+    <strong>User:</strong><%= current_user.email %>
+  </p>
+  
+  <p>
+    <strong>Price:</strong>
+    <%= cart.price %>
+  </p>
+
+  <%= paginate @products %>
+
+  <p>
+    <strong>Product:</strong>
+    <% @products.each do |product| %>
+    <%= render partial: "product", locals: { product: product } %>
+    <strong>Quantity:</strong>
+    <%= link_to "-", remove_to_cart_path(product.id), data: { turbo_method: :delete} %>
+    <%= @number[product.id] %> 
+    <%= link_to "+", add_to_cart_path(product), data: { turbo_method: :post} %>
+    <p>
+      <%= link_to "Show this product", product %> |
+      <%= link_to "Remove to Cart", remove_all_from_cart_path(product.id), data: { turbo_method: :delete} %> |
+      <%= link_to "Buy Now", product %>
+    </p>
+  <% end %>
+  </p>
+
+  
+
+</div>

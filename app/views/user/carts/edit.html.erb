@@ -1,0 +1,12 @@
+<% content_for :title, "Editing cart" %>
+
+<h1>Editing cart</h1>
+
+<%= render "form", cart: @cart %>
+
+<br>
+
+<div>
+  <%= link_to "Show this cart", user_cart_path %> |
+  <%= link_to "Back to carts", user_carts_path %>
+</div>

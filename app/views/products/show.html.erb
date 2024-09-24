@@ -1,9 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
+<% {notice: ("can't be empty")}  if @product.photos == [] %>
 <%= render @product %>
 
 <div>
   <%= link_to "Edit this product", edit_product_path(@product) %> |
+  <%= link_to "Back to products", products_path %> |
+  <%= link_to "Add Image of Product", new_product_photo_path(@product) %>
   <%= link_to "Back to products", products_path %>
 
   <%= button_to "Destroy this product", @product, method: :delete %>

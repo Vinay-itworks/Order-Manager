@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Carts" %>
+
+<h1>Cart</h1>
+
+<div id="carts">
+<%= render partial: "cart", locals: { cart: @cart } %>
+</div>
+<%= link_to "Edit this cart", edit_user_cart_path(id: current_user) %> 
