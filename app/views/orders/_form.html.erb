@@ -32,6 +32,7 @@
     <% if @address_options == [] %>
       <%= link_to "New address", new_user_address_path %>
     <% else %>
+    <%= form.hidden_field :actions, value: params[:actions] %>
       <%= form.submit %>
     <% end %>
     

@@ -10,7 +10,7 @@
 
   <p>
     <strong>Place Order:</strong>
-    <%= link_to "Place Order", new_order_path(:orders => @number) %>
+    <%= link_to "Place Order", new_order_path(:orders => @number, :actions => "cart") %>
   </p>
 
   <%= paginate @products %>

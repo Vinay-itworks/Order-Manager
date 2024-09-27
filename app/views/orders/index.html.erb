@@ -3,7 +3,43 @@
 <% content_for :title, "Orders" %>
 
 <h1>Orders</h1>
+    <table id="example">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Addresses</th>
+                <th>Products</th>
+                <th>Quantity</th>
+                <th>Order Price</th>
+                <th>Order Destroy</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <% @orders.each do |order| %>
+                <tr>
+                    <td><%= order.id %></td>
+                    <td><%= Address.find(order.address_id).values_at(:id, :address_type, :address, :city).join("\n") %></td>
+                    <td><%= order.product_ids %></td>
+                    <td><%= order.products.group(:id).count(:id) %></td>
+                    <td><%= order.order_price %></td>
+                    <td><%= link_to "Cancel Order", order_path(order.id), data: { turbo_method: :delete , turbo_confirm: "Are you sure?"} %></td>
+                    </tr>
+                <% end %>
+            
+        </tbody>
+            
+        <tfoot>
+            <tr>
+                <th>Order ID</th>
+                <th>Addresses</th>
+                <th>Products</th>
+                <th>Quantity</th>
+                <th>Order Price</th>
+            </tr>
+        </tfoot>
 
+    </table>
 <div id="orders">
   <% @orders.each do |order| %>
     <%= render order %>

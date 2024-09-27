@@ -22,11 +22,15 @@ class OrdersController < ApplicationController
     @orders = params[:orders]
     @order_price = 0
     @products_ids = []
-    @orders.each { |key, value|
-      @product = Product.find(key)
-      @order_price += @product.price * Integer(value)
-      @products_ids << Array.new(Integer(value), @product.id)
-    }
+    unless @orders
+      flash[:alert] = "On product is mentioned."
+    else
+      @orders.each { |key, value|
+        @product = Product.find(key)
+        @order_price += @product.price * Integer(value)
+        @products_ids << Array.new(Integer(value), @product.id)
+      }
+    end
     @hidden_params = { products_id: @products_ids, order_price: @order_price }
     # puts "Address options #{@address_options}"
 
@@ -37,21 +41,36 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  def empty_cart
+    @cart = current_user.cart
+    @cart.products = []
+    @cart.save
+  end
+
   # POST /orders or /orders.json
   def create
     @products_ids = order_params[:products_id].split(" ").map(&:to_i)
-    puts "Type:" + "#{order_params.class}"
-    @order = Order.new(order_params.merge(user_id: current_user.id).except(:products_id))
+    puts "Products_ids:" + "#{@products_ids}"
+    if @products_ids == []
+      return redirect_to products_url, orders: @number, alert: "Add products to cart first or buy a product."
+    end
+    @order = Order.new(order_params.merge(user_id: current_user.id).except(:products_id, :actions))
     respond_to do |format|
       if @order.save
         @products_ids.each { |id|
           @@product = Product.find(id)
           @@product_order = @order.order_products.new()
-          @@product_order.product_id = @@product
+          @@product_order.product_id = @@product.id
           @@product_order.product_price = @@product.current_price
           @@product_order.save
-          # render :new, status: :unprocessable_entity unless @@product_order.save
+          puts @@product_order.errors.full_messages
         }
+        if order_params[:actions]
+          if order_params[:actions] == "cart"
+            puts "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG "
+            empty_cart
+          end
+        end
         format.html { redirect_to @order, notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
@@ -76,6 +95,8 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
+    @ord_pro = OrderProduct.find(@order.order_products.ids[0])
+    @ord_pro.destroy!
     @order.destroy!
 
     respond_to do |format|
@@ -92,6 +113,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:user_id, :address_id, :products_id, :order_price)
+      params.require(:order).permit(:user_id, :address_id, :products_id, :order_price, :actions)
     end
 end

@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than: 0 }
   validates :discount, numericality: { in: 0..99 }
   before_save do |product|
-    product.compare_at_price = product.price * (product.discount/100.00)
+    product.compare_at_price = (product.price * (product.discount/100.00)).floor
   end
 
   after_find do |product|

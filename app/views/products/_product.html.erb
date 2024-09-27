@@ -1,28 +1,33 @@
-<h6 class="card-header">
-  <strong>Name:</strong>
-  <%= product.name %>
-</h6>
+
 <div class="card-body">
+  <% if params[:action] == "index" %>
+    <% photo = product.photos.first.photo %>
+    <span>
+      <%= image_tag url_for(photo), height:200, width:200 if photo.attached? %>
+    </span>
+  <% else %>
   <% product.photos.each do |photo| %>
     <span>
       <%= image_tag url_for(photo.photo), height:200, width:200 if photo.photo.attached? %>
     </span>
   <% end %>
+  <% end %>
   <ul class="list-group list-group-flush">
+    <h6 class="list-group-item">
+      <strong>Name:</strong>
+      <%= 
+      if params[:action] == "index"    
+        truncate(product.name)
+      else
+        product.name
+      end  %>
+    </h6>
+    <% unless params[:action] == "index" %>
     <li class="list-group-item">
-      <div class="accordion accordion-flush" id="accordionFlushExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-            <strong>Description:</strong>
-          </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body"><%= product.description %></div>
-        </div>
-      </div>
-      </div>
+      <strong>Description:</strong>
+      <%= product.description %>
     </li>
+    <% end %>
     <li class="list-group-item">
       <strong>Price:</strong>
       <%= product.price %>
